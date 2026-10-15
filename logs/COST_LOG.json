@@ -1,0 +1,25 @@
+{
+  "local_model": [
+    "openai/gpt-oss-120b"
+  ],
+  "llm_calls": 11,
+  "cache_hits": 0,
+  "fallbacks": 0,
+  "total_input_tokens": 3710,
+  "total_output_tokens": 1109,
+  "local_cost": {
+    "currency": "USD",
+    "input_per_1m_tokens": 0.0,
+    "output_per_1m_tokens": 0.0,
+    "total": 0.0
+  },
+  "hosted_equivalent": {
+    "provider": "Groq",
+    "model": "qwen/qwen3.8-27b",
+    "input_per_1m_tokens": 0.8,
+    "output_per_1m_tokens": 4.0,
+    "estimated_total": 0.007404,
+    "source": "https://aichangewatch.com/groq",
+    "date": "2026-10-14"
+  }
+}
