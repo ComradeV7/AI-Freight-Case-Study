@@ -1,0 +1,12 @@
+route,week_of,expected_flag,expected_note_id
+Ahmedabad-Mumbai,2025-01-20,No (justified),N002
+Chennai-Bangalore,2025-02-24,No (justified),N001
+Chennai-Bangalore,2025-03-03,No (justified),N001
+Chennai-Bangalore,2025-03-10,Yes,
+Chennai-Bangalore,2025-03-17,Yes,
+Delhi-Chennai,2024-02-05,Yes,
+Delhi-Jaipur,2024-11-11,Yes,
+Delhi-Jaipur,2024-11-18,Yes,
+Mumbai-Delhi,2025-05-12,Yes,
+Mumbai-Pune,2025-09-15,Yes,
+Mumbai-Pune,2025-11-17,Yes,
