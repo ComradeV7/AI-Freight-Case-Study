@@ -1,0 +1,67 @@
+notes:
+  N001:
+    scope:
+      - Chennai-Bangalore
+    effective_from: "2025-02-24"
+    effective_to: "2025-03-08"
+    polarity: causes_rise
+    source_text: "Heavy flooding on the Chennai-Bangalore highway disrupted normal truck movement from Feb 24 to Mar 8, forcing longer detours and higher trip costs. Roads were passable again by Mar 9."
+  N002:
+    scope:
+      - Ahmedabad-Mumbai
+    effective_from: "2025-01-20"
+    effective_to: "2025-01-26"
+    polarity: causes_rise
+    source_text: "A regional festival week saw a temporary surcharge applied by transporters on the Ahmedabad-Mumbai corridor due to high demand and limited truck availability."
+  N003:
+    scope: ALL
+    effective_from: "2025-05-05"
+    effective_to: "2025-05-11"
+    polarity: causes_rise
+    source_text: "Diesel prices rose nationwide starting this week, pushing up transportation costs across all routes by roughly 5-7%."
+  N004:
+    scope: []
+    effective_from: "2024-03-11"
+    effective_to: "2024-03-11"
+    polarity: not_applicable
+    source_text: "A new toll plaza was commissioned on a national highway stretch, but the affected routes are not part of this dataset."
+  N005:
+    scope:
+      - Mumbai-Delhi
+    effective_from: "2024-07-29"
+    effective_to: "2024-07-29"
+    polarity: no_effect
+    source_text: "Scheduled highway maintenance work between Mumbai and Delhi caused minor delays for about a week; costs were not significantly affected."
+  N006:
+    scope: ALL
+    effective_from: "2025-09-22"
+    effective_to: "2025-09-22"
+    polarity: no_effect
+    source_text: "A logistics industry report noted overall demand for freight capacity remained stable this quarter with no major disruptions reported."
+  N007:
+    scope:
+      - Delhi-Jaipur
+    effective_from: "2024-05-20"
+    effective_to: "2024-05-20"
+    polarity: informational
+    source_text: "Local authorities announced improved road conditions on the Delhi-Jaipur stretch after resurfacing work was completed."
+  N008:
+    scope:
+      - Kolkata-Bhubaneswar
+    effective_from: "2025-06-09"
+    effective_to: "2025-06-09"
+    polarity: no_effect
+    source_text: "No significant disruptions were reported on the Kolkata-Bhubaneswar corridor this quarter; freight movement remained normal."
+  N009:
+    scope:
+      - Chennai-Bangalore
+    effective_from: "2025-03-17"
+    effective_to: "2025-03-17"
+    polarity: informational
+    source_text: "Highway authorities confirmed the Chennai-Bangalore route returned to normal conditions after flood-related repairs were completed."
+  N010:
+    scope: ALL
+    effective_from: "2025-10-27"
+    effective_to: "2025-10-27"
+    polarity: no_effect
+    source_text: "A new vehicle tracking mandate was introduced for commercial fleets; compliance costs were absorbed by transporters without a rate change."

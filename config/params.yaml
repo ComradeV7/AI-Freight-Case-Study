@@ -1,0 +1,18 @@
+flagging:
+  t_own: 0.08
+  t_peer: 0.15
+  history_window: 8
+
+llm:
+  # Provider: "openai" (OpenAI-compatible API, e.g. Groq) or "ollama" (local).
+  provider: openai
+  base_url: https://api.groq.com/openai/v1
+  model: openai/gpt-oss-120b
+  temperature: 0
+  seed: 42
+  reasoning_effort: low
+  max_completion_tokens: 400
+  # Sleep between live requests to stay under hosted rate limits.
+  request_spacing_seconds: 2
+  # The API key is NEVER stored here.  It is read only from the
+  # LLM_API_KEY environment variable at runtime.

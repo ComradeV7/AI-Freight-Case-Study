@@ -1,0 +1,4 @@
+# Optional / experimental AI dependencies.
+# Core retrieval stack (sentence-transformers + chromadb) is now in requirements.txt.
+# Add here only if you experiment with alternative vector stores or local LLM clients.
+# faiss-cpu>=1.8.0

@@ -1,0 +1,15 @@
+pricing:
+  local:
+    # Running the model locally via Ollama incurs no per-token API charge.
+    input_per_1m_tokens: 0.0
+    output_per_1m_tokens: 0.0
+    currency: USD
+  hosted_equivalent:
+    # Groq-hosted qwen/qwen3.8-27b rate at the time of this run.
+    # Free-tier usage is available; this is the published pay-as-you-go rate.
+    provider: "Groq"
+    model: "qwen/qwen3.8-27b"
+    input_per_1m_tokens: 0.80
+    output_per_1m_tokens: 4.00
+    source: "https://aichangewatch.com/groq"
+    date: "2026-10-14"
