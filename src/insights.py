@@ -85,7 +85,7 @@ def build_report(
     lines: list[str] = []
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     lines += [
-        "# FreightTiger — Business Insights",
+        "# FreightTiger - Business Insights",
         "",
         f"Generated: {ts}",
         "",
@@ -98,7 +98,7 @@ def build_report(
         "",
         "## 1. Financial impact triage (INR excess vs 8-week baseline)",
         "",
-        "Excess = actual freight spend − (route trailing-8-week cost/tonne-km × tonne-km)",
+        "Excess = actual freight spend - (route trailing-8-week cost/tonne-km × tonne-km)",
         "for that week. Positive = spend above the route's own recent norm.",
         "",
         "### 1a. Justified surge spend (real-world reason found)",
@@ -130,7 +130,7 @@ def build_report(
         "",
         "---",
         "",
-        "## 2. Transporter-level root cause (corridor-wide vs single-vendor)",
+        "## 2. Transporter-level drilldown (corridor-wide vs split)",
         "",
         "For each flagged week, every active transporter's cost/tonne-km is compared",
         "with its own trailing-8-week average on that route.",
@@ -141,7 +141,7 @@ def build_report(
         rows = transporter_drilldown(shipments, r["route"], r["week_of"])
         kind = classify_spike(rows)
         lines.append(
-            f"- **{r['route']} {r['week_of'].date()}** [{r['flagged']}] — {kind}: {_top_movers(rows)}"
+            f"- **{r['route']} {r['week_of'].date()}** [{r['flagged']}] - {kind}: {_top_movers(rows)}"
         )
 
     lines += [
@@ -152,13 +152,14 @@ def build_report(
         "",
         "**Case studies**",
         "",
-        "- **Delhi-Jaipur 2024-11-11** — corridor-wide: every active transporter jumped",
-        "  together (~+33% to +37%). This is an undocumented market-wide surcharge, not a",
-        "  single-vendor data error; a procurement team should question the whole corridor.",
-        "- **Chennai-Bangalore 2025-03-17** — post-disruption stickiness: after the flood",
-        "  window closed (Mar 8) every carrier is still above its trailing average, but",
-        "  **Speedway Logistics (+23.3%) and Trident Carriers (+20.7%)** are the biggest",
-        "  holdouts vs **Om Sai Transport (+16.4%)** — i.e. flood rates did not fully unwind.",
+        "- **Delhi-Jaipur 2024-11-11** - all three active carriers rose together",
+        "  (~+33% to +37%), so the move is corridor-wide rather than a single-carrier",
+        "  artefact. **No note explains this week**, so it remains flagged for human review.",
+        "- **Chennai-Bangalore 2025-03-17** - **unexplained**: the week follows the end of the",
+        "  N001 window (2025-02-24..2025-03-08), and N009 states conditions were back to normal",
+        "  by 2025-03-17, so no note justifies it. Every active carrier is still above its",
+        "  trailing average; Speedway Logistics (+23.3%) and Trident Carriers (+20.7%) are the",
+        "  highest (this is a description of the data, not an asserted cause).",
         "",
         "---",
         "",
@@ -181,14 +182,15 @@ def build_report(
     if pune is not None:
         lines += [
             "",
-            f"**The discovery.** Six of seven routes drifted only −2% to +7% over two years "
-            f"(consistent with the 5–7% diesel note N003). **Mumbai-Pune crept "
-            f"{pune['change_pct']:+.1%}** ({pune['start_2024']:.2f} → {pune['end_2025']:.2f} INR/tonne-km).",
+            f"**The discovery.** Six of seven routes drifted only -2% to +7% over two years "
+            f"(consistent with the 5-7% diesel note N003). **Mumbai-Pune crept "
+            f"{pune['change_pct']:+.1%}** ({pune['start_2024']:.2f} -> {pune['end_2025']:.2f} INR/tonne-km).",
             "",
             "Because the required `vs_own_history` baseline is a *trailing 8-week rolling mean*, "
-            "a slow ~1.5%/week creep continuously lifts the baseline underneath itself. The 8-week "
+            "a slow creep (median about +1%/week on Mumbai-Pune since mid-2025) lifts the baseline "
+            "underneath itself. The 8-week "
             "window therefore only trips when the creep temporarily out-runs its own baseline "
-            "(2025-09-15 +9.2% and 2025-11-17 +8.9%) — far fewer alarms than a procurement team "
+            "(2025-09-15 +9.2% and 2025-11-17 +8.9%) - far fewer alarms than a procurement team "
             "would want for a lane that is +28.6% over two years.",
             "",
             "**Recommendation.** Keep the mandated 8-week baseline for scoring, but add a long-horizon "

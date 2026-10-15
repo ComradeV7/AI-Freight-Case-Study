@@ -6,7 +6,7 @@
   "cache_hits": 0,
   "fallbacks": 0,
   "total_input_tokens": 3710,
-  "total_output_tokens": 1109,
+  "total_output_tokens": 1079,
   "local_cost": {
     "currency": "USD",
     "input_per_1m_tokens": 0.0,
@@ -18,7 +18,7 @@
     "model": "qwen/qwen3.8-27b",
     "input_per_1m_tokens": 0.8,
     "output_per_1m_tokens": 4.0,
-    "estimated_total": 0.007404,
+    "estimated_total": 0.007284,
     "source": "https://aichangewatch.com/groq",
     "date": "2026-10-14"
   }

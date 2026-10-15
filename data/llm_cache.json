@@ -1,0 +1,68 @@
+{
+  "e4d1bf485031a6d27b491e3bd6f91097eab946dc597a987ad47ece2631252406": {
+    "reason": "Matches note N002 dated 2025-01-20: A regional festival week caused a temporary surcharge on the Ahmedabad‑Mumbai corridor because demand was high and truck availability was limited, leading to the observed freight‑cost increase.",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "seed": 42
+  },
+  "098e87c5169304931e53e4cc8dc77560fb9d013a3885c7125d84dc8ae71287ed": {
+    "reason": "Matches note N001 dated 2025-02-24: Heavy flooding on the Chennai‑Bangalore highway blocked normal truck traffic, requiring longer detours and increasing trip expenses during the period.",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "seed": 42
+  },
+  "870d8421de5a8e14a9c1a9424932e263b995964f9cf788936f0819e80f845f46": {
+    "reason": "Matches note N001 dated 2025-02-24: Heavy flooding on the Chennai‑Bangalore highway forced trucks onto longer detours, increasing travel distance and fuel use, which raised freight costs during the week of 2025‑03‑03.",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "seed": 42
+  },
+  "56d04092914e7e9a07e1ad577df69c52c8de22140767180df794976c2b3b97b8": {
+    "reason": "The freight cost increase for the Chennai‑Bangalore route in the week of 2025‑03‑10 has no supporting note; the closest note N003 (2025‑05‑05) does not justify a rise for this route/week. It is therefore flagged for human review.",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "seed": 42
+  },
+  "0cc17747d17a824e43367631898bec8cbde151cf80c9161f4d7981f2eaca6162": {
+    "reason": "The freight cost increase for the Chennai‑Bangalore route in the week of 2025‑03‑17 has no supporting note; the closest note N001 (2025‑02‑24) describes flooding that ended before this week and does not justify the rise. Flagged for human review.",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "seed": 42
+  },
+  "5820716ac3e2365adf838e3a8b2cbf1c982b70f8bf8191debee1034538ed2d2b": {
+    "reason": "The freight cost rise for the Delhi‑Chennai route in the week of 2024‑02‑05 has no supporting note; the closest note (N001, 2025‑02‑24) describes flooding on a different highway and later dates, which does not justify this cost increase. It is flagged for human review.",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "seed": 42
+  },
+  "caa612989f3dcd90fe4f5d755abc58bd3d881b936ddbfbf65570005949aaf58f": {
+    "reason": "No supporting note explains the freight cost rise for the Delhi‑Jaipur route in the week of 2024‑11‑11. It is flagged for human review. The closest note, N003 (2025‑05‑05), does not justify a cost increase for this route and week.",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "seed": 42
+  },
+  "35563f3fae1603980bfb02963750ab64c317812c3499c776bc6056657814040c": {
+    "reason": "No supporting note explains the freight‑cost rise for the Delhi‑Jaipur route in the week of 2024‑11‑18. The closest note, N007 (2024‑05‑20), only reports improved road conditions and does not justify a cost increase, so this alert is flagged for human review.",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "seed": 42
+  },
+  "b27edd8313652db89f107a96ccf4b4f32ed71dfd0a0b83cb9acf016957ca62ea": {
+    "reason": "The freight cost rise for the Mumbai-Delhi route in the week of 2025-05-12 has no supporting note; the closest note N002 (2025-01-20) refers to a different corridor and does not justify this increase, so the alert is flagged for human review.",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "seed": 42
+  },
+  "58f8129459b0292d713f7803a3c297ed18c33d78abac583be7af9ff6ce29f7cf": {
+    "reason": "No supporting note explains the freight cost rise for Mumbai-Pune week of 2025-09-15. It is flagged for human review. Note N002 (2025-01-20) refers to a different corridor and does not justify this increase.",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "seed": 42
+  },
+  "3fb55a74fdcd2427032f232e38dd9be92c88b0fe14e203f5d70ff7264311d752": {
+    "reason": "No supporting note explains the freight cost rise for Mumbai-Pune week of 2025-11-17. It is flagged for human review. Note N002 (2025-01-20) refers to a different corridor and does not justify this increase.",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "seed": 42
+  }
+}

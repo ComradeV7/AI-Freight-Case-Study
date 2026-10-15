@@ -5,7 +5,7 @@ decides whether a real-world note justifies it, and explains every verdict in
 plain English. Built for the FreightTiger 24-hour Software Engineering Intern (AI) case study.
 
 **Result in one line:** 11 flagged route-weeks (3 justified by notes, 8 unexplained),
-**0 fabrications**, bit-identical across three clean runs, with a full token/cost log —
+**0 fabrications**, bit-identical across three clean runs (replay mode), with a full token/cost log —
 plus a grounded Q&A copilot and an executive ₹-impact report.
 
 ---
@@ -81,16 +81,39 @@ API key and no LLM running**.
 
 ### Optional: live LLM explanations
 
-```bash
-# Local Ollama (free, bit-reproducible)
-set LLM_PROVIDER=ollama
-set OLLAMA_MODEL=llama3.2:3b
+The committed cache already contains real LLM reasons, so this is only needed to
+regenerate them. Pick the syntax for **your** shell (they differ!):
+
+```powershell
+# PowerShell
+$env:LLM_PROVIDER = "ollama"      # local, free, open-source model
+$env:OLLAMA_MODEL = "llama3.2:3b"
 python src/main.py --live
 
-# Groq / OpenAI-compatible (key stays only in the env var)
+$env:LLM_PROVIDER = "openai"      # Groq / OpenAI-compatible hosted
+$env:LLM_API_KEY  = "gsk_your_key_here"
+$env:OPENAI_MODEL = "openai/gpt-oss-120b"
+python src/main.py --live
+```
+
+```bat
+:: cmd.exe
+set LLM_PROVIDER=ollama
+set OLLAMA_MODEL=llama3.2:3b
+python src\main.py --live
+
 set LLM_PROVIDER=openai
 set LLM_API_KEY=gsk_your_key_here
 set OPENAI_MODEL=openai/gpt-oss-120b
+python src\main.py --live
+```
+
+```bash
+# bash (macOS / Linux / WSL)
+export LLM_PROVIDER=ollama OLLAMA_MODEL=llama3.2:3b
+python src/main.py --live
+
+export LLM_PROVIDER=openai LLM_API_KEY=gsk_your_key_here OPENAI_MODEL=openai/gpt-oss-120b
 python src/main.py --live
 ```
 
@@ -159,15 +182,29 @@ Reproduce all of it: `python eval/generate_report.py`.
 
 ## 8. Reproducibility & cost
 
-- **Three clean runs** (delete `outputs/` + `data/llm_cache.json`, re-run) →
-  `outputs/REPRO.md` records the SHA-256 of `flagged_routes.csv` for each. With a
-  local model at temperature 0 the three hashes are **identical**; with a hosted API
-  they can differ in **reason wording only** — the structured columns
-  (`route … matched_note_id`) are identical at temp 0 **and** 0.7, and the diff is
-  shown explicitly.
-- **Cost:** `run_3x.*` aggregates one cold-cache run into `logs/COST_LOG.json`
-  (LLM calls, input/output tokens, local cost = 0, and a hosted-equivalent estimate
-  from `config/pricing.yaml` with source + date).
+**Reason provenance for the committed `outputs/flagged_routes.csv`:** all 11 reasons
+are **LLM-written** (Groq `openai/gpt-oss-120b`, temperature 0, seed 42), **0 template
+fallbacks**, and are reproducible from the committed cache `data/llm_cache.json` —
+`python src/main.py` (no key, no network) replays them (three runs, SHA-256
+`E73E85A7…`, identical). `run_3x.*` separately shows the live behaviour: three clean
+temp-0 runs and one temp-0.7 run, where only the *reason wording* varies.
+
+One full cold-cache run (`logs/COST_LOG.json`):
+
+| Metric | Value |
+|---|---:|
+| LLM calls | 11 |
+| Input tokens | 3,710 |
+| Output tokens | 1,079 |
+| Local cost (Ollama) | $0.0000 |
+| Hosted-equivalent cost | $0.007284 |
+
+The hosted-equivalent uses the published Groq rate in `config/pricing.yaml`
+(`qwen/qwen3.8-27b`: $0.80 / $4.00 per 1M in/out, source + date recorded there).
+Reproducibility notes: replay-from-cache is bit-identical; **live** output is
+reproducible on the *same machine and model version* (a different GPU/CPU, package
+version, or Ollama build can change wording even at temperature 0). The structured
+columns (`route … matched_note_id`) are identical across temp 0 **and** 0.7.
 
 ## 9. Stretch goal: Procurement Copilot + Business Insights
 
@@ -192,16 +229,17 @@ python src/qa.py "why did costs rise on Hyderabad-Bangalore?"   # -> clean refus
 | **Total** | **11** | **₹1,86,423** |
 
 - **Transporter drilldown:** each flagged week is split by carrier vs that carrier's
-  own trailing-8-week average — e.g. Delhi-Jaipur 2024-11-11 is *corridor-wide*
-  (all carriers ~+33–37%, an undocumented market-wide surcharge), while
-  Chennai-Bangalore 2025-03-17 shows post-flood stickiness (Speedway Logistics and
-  Trident Carriers are the biggest holdouts). The data has **6 transporters**
+  own trailing-8-week average. E.g. Delhi-Jaipur 2024-11-11 is *corridor-wide* (all
+  three carriers ~+33–37% together; **no note explains it**), and Chennai-Bangalore
+  2025-03-17 is *unexplained* with every carrier still above its trailing average
+  (Speedway Logistics +23.3% and Trident Carriers +20.7% highest). These are
+  descriptions of the data, not asserted causes. The file has **6 transporters**
   (`Coromandel Carriers` only appears on Delhi-Chennai).
 - **Slow-creep discovery:** first-8-weeks-2024 vs last-8-weeks-2025 shows six routes
   drifting −2%…+7%, but **Mumbai-Pune +28.6%** (3.34 → 4.29 INR/tonne-km). A trailing
-  8-week baseline absorbs ~1.5%/week creep into itself, so the required window only
-  trips twice — a real procurement blind spot the report calls out with a long-horizon
-  recommendation.
+  8-week baseline absorbs slow creep into itself (median ~+1%/week on Mumbai-Pune since
+  mid-2025), so the required window only trips twice — a real procurement blind spot the
+  report calls out with a long-horizon recommendation.
 
 ## 10. Configuration & CLI
 
@@ -269,6 +307,10 @@ freighttiger/
 - Output contains **only candidate rows**; non-candidates are not emitted.
 - Notes are the source of truth in `config/notes_registry.yaml`; unseen/edited notes
   are derived from the CSV (scope/window/polarity) so the pipeline stays portable.
+- **Thin peer groups:** `Short` and `Long` each contain only **2 routes** and `Medium`
+  **3**, so excluding self leaves a **single peer** for 4 of the 7 routes (2 peers for
+  the other 3). `vs_similar_routes` is therefore a one-to-one comparison on most routes
+  and should be read as directional, not statistically robust.
 - Ambiguities left open in the brief are recorded in `SPEC.md` (threshold direction,
   `vs_*` string format, candidate scope, decimal precision, window semantics).
 
@@ -276,9 +318,10 @@ freighttiger/
 
 A sanity script (`scripts/cross_check_notes.py`) asks a local model to reproduce the
 note fields. On 2026-10-14, **llama3.2:3b** disagreed with the curated YAML on **28
-fields** across 10 notes (hallucinated 2022/2023 dates, wrong scope, wrong polarity),
-confirming the curated registry must remain the source of truth. Details in the
-script and in `SPEC.md`.
+fields** across 10 notes (hallucinated 2022/2023 dates, wrong scope, wrong polarity) —
+**which is exactly why verdicts never depend on the LLM**: the model only writes prose,
+and every verdict/note-id comes from the deterministic rule gate. The curated registry
+remains the source of truth. Details in the script and in `SPEC.md`.
 
 ---
 
